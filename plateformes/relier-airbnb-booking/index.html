@@ -57,7 +57,7 @@ function dessiner() {
     const items = s.guides.filter((g) => !q || norm(g.title).includes(q) || norm(g.code).includes(q) || norm(s.label).includes(q));
     if (!items.length) continue;
     const d = document.createElement("details");
-    d.open = Boolean(q) || (courant && courant.section === s.key);
+    d.open = true;
     d.innerHTML = "<summary>" + s.label + " <small>(" + items.length + ")</small></summary>";
     for (const g of items) {
       const b = document.createElement("button");

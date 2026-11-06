@@ -46,7 +46,7 @@ footer{padding:0 24px 18px;color:var(--gris)}
 </div>
 <footer>Ce guide est toujours la dernière version. Une question reste sans réponse ? Dans l'application, cliquez sur le bouton <b>Aide</b>, puis sur <b>Nous contacter</b>. Vous pouvez aussi écrire à <a href="mailto:contact@obt-agency.fr">contact@obt-agency.fr</a>.</footer>
 <script>
-const SECTIONS = [{"key": "plateforme", "label": "Airbnb", "guides": [{"code": "AB1", "title": "Comment relier Airbnb à votre application", "slides": 3}, {"code": "AB2", "title": "Trouver le lien de votre calendrier Airbnb", "slides": 7}, {"code": "AB3", "title": "Coller le lien de l'application dans Airbnb", "slides": 8}, {"code": "AB4", "title": "Vérifier que ça marche", "slides": 3}]}];
+const SECTIONS = [{"key": "plateforme", "label": "Airbnb", "guides": [{"code": "AB2", "title": "Trouver le lien de votre calendrier Airbnb", "slides": 7}, {"code": "AB3", "title": "Coller le lien de l'application dans Airbnb", "slides": 8}, {"code": "AB4", "title": "Vérifier que ça marche", "slides": 3}]}];
 const norm = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 let courant = null, ecran = 1;
 const liste = document.getElementById("liste"), rech = document.getElementById("rech");
@@ -57,7 +57,7 @@ function dessiner() {
     const items = s.guides.filter((g) => !q || norm(g.title).includes(q) || norm(g.code).includes(q) || norm(s.label).includes(q));
     if (!items.length) continue;
     const d = document.createElement("details");
-    d.open = Boolean(q) || (courant && courant.section === s.key);
+    d.open = true;
     d.innerHTML = "<summary>" + s.label + " <small>(" + items.length + ")</small></summary>";
     for (const g of items) {
       const b = document.createElement("button");
