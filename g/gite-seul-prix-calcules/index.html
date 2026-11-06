@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide client - Gîte seul, prix calculés</title>
+<style>
+:root{--marine:#0B2A7A;--encre:#12151A;--gris:#51628a;--bord:#cfdcf5;--fond:#F3F8FF}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--encre);background:radial-gradient(1200px 600px at 8% 0%,#B4D2FF 0%,transparent 60%),radial-gradient(900px 500px at 100% 100%,#B5E3FE 0%,transparent 55%),var(--fond);min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:16px 24px}
+header b{font-size:22px;letter-spacing:-.02em}
+header span{color:var(--gris)}
+.corps{flex:1;display:flex;gap:20px;padding:0 24px 20px;min-height:0}
+aside{width:340px;flex:none;background:#fff;border:2px solid var(--marine);border-radius:16px;display:flex;flex-direction:column;max-height:calc(100vh - 140px)}
+aside input{margin:12px;padding:10px 12px;border:1px solid var(--bord);border-radius:10px;font:inherit}
+#liste{overflow:auto;padding:0 8px 12px}
+details{margin:4px 0}
+summary{cursor:pointer;font-weight:700;padding:8px;color:var(--marine)}
+.q{display:flex;gap:8px;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:8px;cursor:pointer;font:inherit;color:var(--encre)}
+.q:hover{background:#eaf1ff}.q.on{background:#dbe7ff;font-weight:600}
+.q i{font-style:normal;min-width:34px;font-weight:700;color:var(--marine);font-size:13px}
+main{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+#vide{background:#fff;border:2px solid var(--marine);border-radius:16px;padding:28px;font-size:18px;line-height:1.5}
+#vue{display:none;flex-direction:column;gap:12px}
+#vue h1{font-size:20px;margin:0}
+#vue img{width:100%;height:auto;border:3px solid var(--marine);border-radius:14px;background:#fff;display:block}
+.nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.nav button{border:2px solid var(--marine);background:var(--marine);color:#fff;border-radius:10px;padding:10px 18px;font:600 15px inherit;cursor:pointer}
+.nav button.sec{background:#fff;color:var(--marine)}
+.nav button:disabled{opacity:.4;cursor:default}
+.nav span{color:var(--gris)}
+footer{padding:0 24px 18px;color:var(--gris)}
+@media (max-width:900px){.corps{flex-direction:column}aside{width:100%;max-height:50vh}}
+.retour{display:inline-block;margin-right:6px;padding:7px 14px;border:2px solid var(--marine);border-radius:10px;background:#fff;color:var(--marine);font-weight:700;text-decoration:none;font-size:14px}.retour:hover{background:#eaf1ff}</style>
+</head>
+<body>
+<header><a class="retour" href="../../">← Tous les guides</a><b>Guide client - Gîte seul, prix calculés</b><span>Application de gestion d'hébergement</span></header>
+<div class="corps">
+<aside><input id="rech" type="search" placeholder="Chercher un mot : prix, photo, réservation" aria-label="Chercher dans le guide"><div id="liste"></div></aside>
+<main>
+<div id="vide"><b>Bienvenue dans votre guide.</b><br>Écrivez un mot dans la case de recherche, ou ouvrez une page de la liste, puis cliquez sur une question. Chaque réponse se lit écran par écran.</div>
+<div id="vue"><h1 id="titre"></h1><img id="img" alt=""><div class="nav"><button class="sec" id="prec">Écran précédent</button><span id="pos"></span><button id="suiv">Écran suivant</button><button class="sec" id="liste-retour">Retour à la liste</button></div></div>
+</main>
+</div>
+<footer>Ce guide est toujours la dernière version. Une question reste sans réponse ? Dans l'application, cliquez sur le bouton <b>Aide</b>, puis sur <b>Nous contacter</b>. Vous pouvez aussi écrire à <a href="mailto:contact@obt-agency.fr">contact@obt-agency.fr</a>.</footer>
+<script>
+const SECTIONS = [{"key": "00-demarrer", "label": "Démarrer", "guides": [{"code": "D1", "title": "Se connecter et se repérer", "slides": 5}, {"code": "D2", "title": "Votre premier jour en quatre pas", "slides": 13}, {"code": "D3", "title": "Comprendre le site et les mots", "slides": 4}]}, {"key": "01-planning", "label": "Planning", "guides": [{"code": "P1", "title": "Lire le planning et vérifier le site", "slides": 8}, {"code": "P2", "title": "Marquer une réservation reçue", "slides": 18}, {"code": "P3", "title": "Modifier ou libérer des dates", "slides": 7}]}, {"key": "02-tarifs", "label": "Tarifs", "guides": [{"code": "T1", "title": "Comprendre et poser le prix de base", "slides": 15}, {"code": "T2", "title": "Tarifs spéciaux sur des dates", "slides": 18}, {"code": "T3", "title": "Nuits minimum", "slides": 15}, {"code": "T4", "title": "Corriger ou remettre un tarif", "slides": 13}, {"code": "T5", "title": "Vérifier un prix", "slides": 5}]}, {"key": "03-logements", "label": "Logements", "guides": [{"code": "L1", "title": "Comprendre et modifier un logement", "slides": 15}, {"code": "L2", "title": "Ajouter un autre gîte", "slides": 1}]}, {"key": "05-options", "label": "Options", "guides": [{"code": "O1", "title": "Comprendre et créer une option", "slides": 32}, {"code": "O2", "title": "Une option à la quantité", "slides": 7}, {"code": "O3", "title": "Une réduction en pourcentage", "slides": 7}, {"code": "O4", "title": "Réglages fins et prix pour les enfants", "slides": 9}, {"code": "O5", "title": "Modifier, masquer ou supprimer une option", "slides": 10}]}, {"key": "06-conditions", "label": "Conditions", "guides": [{"code": "C1", "title": "Comprendre et ajouter une case", "slides": 10}, {"code": "C2", "title": "Modifier une case", "slides": 5}, {"code": "C3", "title": "Masquer ou supprimer une case", "slides": 6}]}, {"key": "07-formulaire", "label": "Formulaire", "guides": [{"code": "F1", "title": "Poser une question", "slides": 5}, {"code": "F2", "title": "Modifier ou retirer une question", "slides": 9}, {"code": "F3", "title": "Retrouver les réponses", "slides": 3}]}, {"key": "08-traductions", "label": "Traductions", "guides": [{"code": "R1", "title": "Comprendre et traduire", "slides": 5}, {"code": "R2", "title": "Corriger ou attendre une traduction", "slides": 5}]}, {"key": "09-boite-de-reception", "label": "Boîte de réception", "guides": [{"code": "B1", "title": "Lire une demande", "slides": 5}, {"code": "B2", "title": "Valider ou abandonner", "slides": 10}]}, {"key": "10-journal", "label": "Journal", "guides": [{"code": "J1", "title": "Lire et retrouver", "slides": 2}]}, {"key": "11-mon-compte", "label": "Mon compte", "guides": [{"code": "M1", "title": "Mot de passe", "slides": 7}, {"code": "M2", "title": "Me déconnecter", "slides": 2}]}, {"key": "12-depannage", "label": "Dépannage", "guides": [{"code": "Z1", "title": "Modification ou prix qui ne va pas", "slides": 4}, {"code": "Z2", "title": "Date ou connexion", "slides": 3}, {"code": "Z3", "title": "Nous contacter", "slides": 3}]}];
+const norm = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+let courant = null, ecran = 1;
+const liste = document.getElementById("liste"), rech = document.getElementById("rech");
+function dessiner() {
+  const q = norm(rech.value.trim());
+  liste.innerHTML = "";
+  for (const s of SECTIONS) {
+    const items = s.guides.filter((g) => !q || norm(g.title).includes(q) || norm(g.code).includes(q) || norm(s.label).includes(q));
+    if (!items.length) continue;
+    const d = document.createElement("details");
+    d.open = Boolean(q) || (courant && courant.section === s.key);
+    d.innerHTML = "<summary>" + s.label + " <small>(" + items.length + ")</small></summary>";
+    for (const g of items) {
+      const b = document.createElement("button");
+      b.className = "q" + (courant && courant.code === g.code ? " on" : "");
+      b.innerHTML = "<i>" + g.code + "</i><span>" + g.title + "</span>";
+      b.onclick = () => ouvrir(s, g, 1);
+      d.appendChild(b);
+    }
+    liste.appendChild(d);
+  }
+}
+function ouvrir(s, g, n) {
+  courant = { section: s.key, code: g.code, slides: g.slides, titre: g.title };
+  ecran = n;
+  afficher();
+  dessiner();
+}
+function afficher() {
+  document.getElementById("vide").style.display = "none";
+  const v = document.getElementById("vue"); v.style.display = "flex";
+  document.getElementById("titre").textContent = courant.code + " : " + courant.titre;
+  document.getElementById("img").src = "images/" + courant.section + "/" + courant.code + "/" + ecran + ".webp";
+  document.getElementById("img").alt = courant.titre + ", écran " + ecran;
+  document.getElementById("pos").textContent = "Écran " + ecran + " sur " + courant.slides;
+  document.getElementById("prec").disabled = ecran <= 1;
+  document.getElementById("suiv").textContent = ecran >= courant.slides ? "Terminé" : "Écran suivant";
+  document.getElementById("suiv").disabled = ecran >= courant.slides;
+  try { history.replaceState(null, "", "#" + courant.code + "/" + ecran); } catch (e) {}
+  window.scrollTo(0, 0);
+}
+function retour() { courant = null; document.getElementById("vue").style.display = "none"; document.getElementById("vide").style.display = ""; dessiner(); }
+document.getElementById("prec").onclick = () => { if (ecran > 1) { ecran--; afficher(); } };
+document.getElementById("suiv").onclick = () => { if (ecran < courant.slides) { ecran++; afficher(); } };
+document.getElementById("liste-retour").onclick = retour;
+rech.oninput = dessiner;
+addEventListener("keydown", (e) => {
+  if (!courant || e.target === rech) return;
+  if (e.key === "ArrowRight" && ecran < courant.slides) { ecran++; afficher(); }
+  if (e.key === "ArrowLeft" && ecran > 1) { ecran--; afficher(); }
+});
+dessiner();
+const m = location.hash.match(/^#([A-Z]+\d+)\/(\d+)$/);
+if (m) for (const s of SECTIONS) for (const g of s.guides) if (g.code === m[1]) ouvrir(s, g, Math.min(Number(m[2]), g.slides));
+</script>
+</body>
+</html>
