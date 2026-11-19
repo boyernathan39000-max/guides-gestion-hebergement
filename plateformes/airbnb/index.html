@@ -33,7 +33,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
 .nav span{color:var(--gris)}
 footer{padding:0 24px 18px;color:var(--gris)}
 @media (max-width:900px){.corps{flex-direction:column}aside{width:100%;max-height:50vh}}
-.retour{display:inline-block;margin-right:6px;padding:7px 14px;border:2px solid var(--marine);border-radius:10px;background:#fff;color:var(--marine);font-weight:700;text-decoration:none;font-size:14px}.retour:hover{background:#eaf1ff}</style>
+.retour{display:inline-block;margin-right:6px;padding:7px 14px;border:1px solid rgba(18,21,26,.10);border-radius:999px;background:#fff;color:var(--marine);font-weight:700;text-decoration:none;font-size:14px}.retour:hover{background:rgba(37,88,214,.08)}:root{--marine:#2558D6;--fond:#FAF9F5;--gris:#545B64;--bord:rgba(18,21,26,.10)}body{background:#FAF9F5}header b{letter-spacing:-.035em}aside,#vide{border:1px solid rgba(18,21,26,.10);border-radius:20px}#vue img{border:1px solid rgba(18,21,26,.10)}.q:hover{background:rgba(37,88,214,.08)}.q.on{background:rgba(37,88,214,.14)}.nav button{border-radius:999px}</style>
 </head>
 <body>
 <header><a class="retour" href="../../">← Tous les guides</a><b>Guide plateforme - Airbnb</b><span>Relier votre plateforme à l'application de gestion</span></header>
@@ -44,7 +44,7 @@ footer{padding:0 24px 18px;color:var(--gris)}
 <div id="vue"><h1 id="titre"></h1><img id="img" alt=""><div class="nav"><button class="sec" id="prec">Écran précédent</button><span id="pos"></span><button id="suiv">Écran suivant</button><button class="sec" id="liste-retour">Retour à la liste</button></div></div>
 </main>
 </div>
-<footer>Ce guide est toujours la dernière version. Une question reste sans réponse ? Dans l'application, cliquez sur le bouton <b>Aide</b>, puis sur <b>Nous contacter</b>. Vous pouvez aussi écrire à <a href="mailto:contact@obt-agency.fr">contact@obt-agency.fr</a>.</footer>
+<footer>Ce guide est toujours la dernière version. Une question reste sans réponse ? Écrivez-nous à <a href="mailto:contact@obt-agency.fr">contact@obt-agency.fr</a>.</footer>
 <script>
 const SECTIONS = [{"key": "plateforme", "label": "Airbnb", "guides": [{"code": "AB2", "title": "Trouver le lien de votre calendrier Airbnb", "slides": 7}, {"code": "AB3", "title": "Coller le lien de l'application dans Airbnb", "slides": 8}, {"code": "AB4", "title": "Vérifier que ça marche", "slides": 3}]}];
 const norm = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
